@@ -6,7 +6,7 @@
 /*   By: smiro <smiro@student.42barcelona>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:58:29 by smiro             #+#    #+#             */
-/*   Updated: 2022/11/08 18:03:46 by smiro            ###   ########.fr       */
+/*   Updated: 2022/11/10 17:39:20 by smiro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_int(char *num)
 	int	i;
 
 	i = 0;
-	if (num[i] == '-' || num[i] == '+')
+	if (num[i] == '-')
 		i++;
 	if (!num[i])
 		return (0);

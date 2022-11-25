@@ -12,18 +12,6 @@
 
 #include "../includes/push_swap.h"
 
-void	printlst(t_int **a)
-{
-	t_int *temp;
-
-	temp = *a;
-	while (temp)
-	{
-		ft_printf("n: %d index: %d\n", temp->n, temp->index);
-		temp = temp->next;
-	}
-}
-
 int	main(int ac, char **av)
 {
 	t_int	*a;
@@ -33,7 +21,9 @@ int	main(int ac, char **av)
 		return (0);
 	ft_check(ac, av);
 	a = initialize(ac, av);
-	b = initialize(0, NULL);
+	b = NULL;
+	if (ft_issort(&a))
+		exit(0);
 	if (ac <= 4)
 	{
 		while (!ft_issort(&a))

@@ -26,90 +26,33 @@ static void	setptr(t_int **front, t_int **back, t_int **a)
 	}
 }
 
-static int	findplace(t_int **lst, int num)
+static void	pushchunk(t_int **a, t_int **b, int max)
 {
-	t_int	*last;
-	int		i;
-	t_int	*temp;
+	static int	n = 0;
 
-	temp = *lst;
-	last = ft_last(lst);
-	i = 0;
-	if (!temp || !temp->next
-		|| (ismin(num, lst) && ismin(last->index, lst))
-		|| (ismax(num, lst) && ismax((*lst)->index, lst))
-		|| ((*lst)->index < num && last->index > num))
-		return (i);
-	while (temp->next)
-	{
-		i++;
-		if ((ismax(temp->index, lst) && ismax(num, lst))
-			|| (ismin(temp->index, lst) && ismin(num, lst))
-			|| (temp->index > num && temp->next->index < num)
-			|| (ismin(temp->index, lst) && ismax(temp->next->index, lst)
-				&& (ismax(num, lst) || ismin(num, lst))))
-			return (i);
-		temp = temp->next;
-	}
-	return (i);
+	if (!n)
+		n = max / 2;
+	push(a, b, 'b');
+	if ((*b)->index < max - n && (*b)->next)
+		rotate(b, 'b');
 }
 
-static void	pushchunk(t_int **a, t_int **b, int x)
+static void	rotatechunk(t_int	**a, t_int **b, int max, int i)
 {
-	if (!*b || !x)
-		push(a, b, 'b');
-	else
-	{
-		while (x > 0 && x < lstlen(b))
-		{
-			if (x * 10 <= lstlen(b) * 5)
-			{
-				rotate(b, 'b');
-				x--;
-			}
-			else
-			{
-				rrotate(b, 'b');
-				x++;
-			}
-		}
-		push(a, b, 'b');
-	}
-}
-
-static void	rotatechunk(t_int	**a, t_int **b, t_int *num, int i)
-{
-	int	x;
-
-	x = findplace(b, num->index);
 	while (i > 0)
 	{
-		if (x * 10 <= lstlen(b) * 5 && x > 0)
-		{
-			rotate(a, 'r');
-			rotate(b, 0);
-			x--;
-		}
-		else
-			rotate(a, 'a');
+		rotate(a, 'a');
 		i--;
 	}
 	while (i < 0)
 	{
-		if (x * 10 >= lstlen(b) * 5 && x < lstlen(b))
-		{
-			rrotate(a, 'r');
-			rrotate(b, 0);
-			x++;
-		}
-		else
-			rrotate(a, 'a');
+		rrotate(a, 'a');
 		i++;
 	}
-	pushchunk(a, b, x);
+	pushchunk(a, b, max);
 }
 
-void	scanchunk(t_int	**a, t_int **b, int min, int max)
+void	scanchunk(t_int	**a, t_int **b, int max)
 {
 	t_int	*front;
 	t_int	*back;
@@ -119,13 +62,14 @@ void	scanchunk(t_int	**a, t_int **b, int min, int max)
 	setptr(&front, &back, a);
 	while (lstlen(b) < max)
 	{
-		if ((front->index >= min && front->index < max)
-			|| (back->index >= min && back->index < max))
+		if (front->index < max || back->index < max)
 		{
-			if (front->index >= min && front->index < max)
-				rotatechunk(a, b, front, i);
+			if (front->index < max)
+				rotatechunk(a, b, max, i);
+			else if (front->next->index < max)
+				rotatechunk(a, b, max, i + 1);
 			else
-				rotatechunk(a, b, back, -i - 1);
+				rotatechunk(a, b, max, -i - 1);
 			i = 0;
 			setptr(&front, &back, a);
 		}

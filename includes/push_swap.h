@@ -6,20 +6,20 @@
 /*   By: smiro <smiro@student.42barcelona>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 12:03:18 by smiro             #+#    #+#             */
-/*   Updated: 2022/11/08 15:32:58 by smiro            ###   ########.fr       */
+/*   Updated: 2022/11/25 18:47:53 by smiro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include <stdlib.h>
-#include "libft/libft.h"
-#include "printf/ft_printf.h"
+# include <stdlib.h>
+# include "libft/libft.h"
+# include "printf/ft_printf.h"
 
 void	ft_check(int ac, char **av);
 
-typedef struct 		t_int
+typedef struct t_int
 {
 	int				n;
 	int				index;
@@ -45,7 +45,7 @@ void	ft_handle100(t_int **a, t_int **b, int size);
 
 void	ft_handle500(t_int **a, t_int **b, int size);
 
-void	scanchunk(t_int	**a, t_int **b, int min, int max);
+void	scanchunk(t_int	**a, t_int **b, int max);
 
 int		ft_issort(t_int **lst);
 
@@ -58,6 +58,5 @@ int		lstlen(t_int **lst);
 t_int	*initialize(int ac, char **av);
 
 t_int	*ft_last(t_int **lst);
-
 
 #endif

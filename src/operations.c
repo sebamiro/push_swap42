@@ -88,5 +88,6 @@ void	push(t_int **a, t_int **b, char c)
 	if (*b)
 		(*b)->prev = temp;
 	*b = temp;
-	ft_printf("p%c\n", c);
+	if (c)
+		ft_printf("p%c\n", c);
 }

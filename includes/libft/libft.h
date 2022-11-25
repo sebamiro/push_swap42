@@ -6,7 +6,7 @@
 /*   By: seba <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 21:48:37 by seba              #+#    #+#             */
-/*   Updated: 2022/10/31 15:55:07 by smiro            ###   ########.fr       */
+/*   Updated: 2022/11/25 17:00:22 by smiro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include "get_next_line/get_next_line.h"
 
 size_t	ft_strlen(const char *str);
 

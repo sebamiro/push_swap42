@@ -60,7 +60,7 @@ void	ft_handle5(t_int **a, t_int **b, int size)
 			|| ((*b)->index < (*a)->index && (*b)->index > last->index))
 			push(b, a, 'a');
 		else if (!ismax((*b)->index, a)
-				&& ((*b)->index > mid->index || (*b)->index > mid->next->index))
+			&& ((*b)->index > mid->index || (*b)->index > mid->next->index))
 			rrotate(a, 'a');
 		else
 			rotate(a, 'a');

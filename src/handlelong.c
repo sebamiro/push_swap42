@@ -12,76 +12,100 @@
 
 #include "../includes/push_swap.h"
 
-static void	getmax(t_int **lst, int max)
+static void	push_previous(t_int **a, t_int **b, int num)
+{
+	if ((*b)->index == num - 1)
+		push(b, a, 'a');
+	else
+	{
+		push(b, a, 'a');
+		rotate(a, 'a');
+	}
+}
+
+static void	sort_a(t_int **a)
+{
+	if ((*a)->next->index == (*a)->index - 1)
+		swap(a, 'a');
+	if ((ft_last(a))->index < (*a)->index)
+		rrotate(a, 'a');
+}
+
+static void	getmax(t_int **a, t_int **b)
 {
 	t_int	*temp;
 	int		i;
 
 	i = 0;
-	temp = *lst;
-	while (temp->index != max)
-	{
-		i++;
+	temp = *b;
+	while (!ismax(temp->index, b) && ++i)
 		temp = temp->next;
-	}
-	while (i * 10 <= lstlen(lst) * 5 && i > 0)
+	while (i * 10 <= lstlen(b) * 5 && i > 0)
 	{
-		rotate(lst, 'b');
+		if ((*b)->index == temp->index - 1 || (*b)->index == temp->index - 2)
+			push_previous(a, b, temp->index);
+		else
+			rotate(b, 'b');
 		i--;
 	}
-	while (i * 10 >= lstlen(lst) * 5 && i < lstlen(lst))
+	while (i * 10 >= lstlen(b) * 5 && i < lstlen(b))
 	{
-		rrotate(lst, 'b');
+		if ((*b)->index == temp->index - 1 || (*b)->index == temp->index - 2)
+		{
+			push_previous(a, b, temp->index);
+			i--;
+		}
+		rrotate(b, 'b');
 		i++;
 	}
 }
 
 void	ft_handle100(t_int **a, t_int **b, int size)
 {
-	int	min;
 	int	max;
 	int	total;
 
-	min = 0;
 	max = 20;
 	total = size;
 	while (size > 0)
 	{
 		if (max >= total)
 			max = total - 3;
-		scanchunk(a, b, min, max);
-		min += 20;
+		scanchunk(a, b, max);
 		max += 20;
 		size -= 20;
 	}
-	getmax(b, total - 4);
 	while (!ft_issort(a))
 		ft_handle3(a, 'a');
 	while (*b)
+	{
+		getmax(a, b);
 		push(b, a, 'a');
+		sort_a(a);
+	}
 }
 
 void	ft_handle500(t_int **a, t_int **b, int size)
 {
-	int	min;
 	int	max;
 	int	total;
 
-	min = 0;
-	max = 50;
+	max = 62;
 	total = size;
 	while (size > 0)
 	{
 		if (max >= total)
 			max = total - 3;
-		scanchunk(a, b, min, max);
-		min += 45;
-		max += 45;
-		size -= 45;
+		scanchunk(a, b, max);
+		max += 62;
+		size -= 62;
 	}
-	getmax(b, total - 4);
 	while (!ft_issort(a))
 		ft_handle3(a, 'a');
 	while (*b)
+	{
+		getmax(a, b);
 		push(b, a, 'a');
+		sort_a(a);
+	}
 }
