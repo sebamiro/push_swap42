@@ -12,20 +12,6 @@
 
 #include "../includes/push_swap.h"
 
-static void	setptr(t_int **front, t_int **back, t_int **a)
-{
-	if (a)
-	{
-		*front = *a;
-		*back = ft_last(a);
-	}
-	else
-	{
-		*front = (*front)->next;
-		*back = (*back)->prev;
-	}
-}
-
 static void	pushchunk(t_int **a, t_int **b, int max)
 {
 	static int	n = 0;
@@ -55,28 +41,23 @@ static void	rotatechunk(t_int	**a, t_int **b, int max, int i)
 void	scanchunk(t_int	**a, t_int **b, int max)
 {
 	t_int	*front;
-	t_int	*back;
 	int		i;
 
 	i = 0;
-	setptr(&front, &back, a);
+	front = *a;
 	while (lstlen(b) < max)
 	{
-		if (front->index < max || back->index < max)
+		if (front->index < max)
 		{
 			if (front->index < max)
-				rotatechunk(a, b, max, i);
-			else if (front->next->index < max)
-				rotatechunk(a, b, max, i + 1);
-			else
-				rotatechunk(a, b, max, -i - 1);
+				rotatechunk(a, b, max, i); 
 			i = 0;
-			setptr(&front, &back, a);
+			front = *a;
 		}
 		else
 		{
 			i++;
-			setptr(&front, &back, NULL);
+			front = front->next;
 		}
 	}
 }
