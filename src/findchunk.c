@@ -50,7 +50,7 @@ void	scanchunk(t_int	**a, t_int **b, int max)
 		if (front->index < max)
 		{
 			if (front->index < max)
-				rotatechunk(a, b, max, i); 
+				rotatechunk(a, b, max, i);
 			i = 0;
 			front = *a;
 		}
